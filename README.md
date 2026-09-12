@@ -21,7 +21,7 @@
             会用平台 ──────▶ 懂 AI 工程 ──────▶ 碰过模型
                 │                  │                  │
    ┌────────────┴──────┐  ┌────────┴───────┐  ┌──────┴─────────┐
-   │ jiangling-        │  │ jiangling-     │  │ medical-       │
+   │ preaudit-        │  │ preaudit-     │  │ medical-       │
    │ ai-preaudit       │  │ multi-agent    │  │ lora-finetune  │
    │ RAG 应用+评估     │  │ LangGraph 编排 │  │ LoRA 微调+评估  │
    └───────────────────┘  └────────────────┘  └────────────────┘
@@ -31,13 +31,13 @@
 
 | 仓库 | 角色 | 技术栈 | 解决什么 |
 |---|---|---|---|
-| [jiangling-ai-preaudit](../../jiangling-ai-preaudit) | AI 工程作品（能讲深） | TF-IDF/Milvus + Ollama + RAG 评估 | 切片策略、重排序、量化评估 |
-| [jiangling-multi-agent](../../jiangling-multi-agent) | 多 Agent 编排（命中楚天云 JD） | LangGraph | 规划/检索/审核三 Agent 协作 |
+| [preaudit-rag-engine](../../preaudit-rag-engine) | AI 工程作品（能讲深） | TF-IDF/Milvus + Ollama + RAG 评估 | 切片策略、重排序、量化评估 |
+| [preaudit-multi-agent](../../preaudit-multi-agent) | 多 Agent 编排（命中楚天云 JD） | LangGraph | 规划/检索/审核三 Agent 协作 |
 | [medical-lora-finetune](../../medical-lora-finetune) | 原理级证据 | LoRA/PEFT | 训练并评估模型，不止调 API |
 
 > 仓库公开地址：
-> - jiangling-ai-preaudit: https://github.com/symQWEQW/jiangling-ai-preaudit
-> - jiangling-multi-agent: https://github.com/symQWEQW/jiangling-multi-agent
+> - preaudit-rag-engine: https://github.com/symQWEQW/preaudit-rag-engine
+> - preaudit-multi-agent: https://github.com/symQWEQW/preaudit-multi-agent
 > - medical-lora-finetune: https://github.com/symQWEQW/medical-lora-finetune
 
 ## 技术博客
