@@ -15,6 +15,10 @@
 >
 > 代码仓库：GitHub @symQWEQW。
 
+## 站点实况
+
+![作品集站点首页实况](docs/images/site-home.png)
+
 ## 统一叙事：从应用到原理
 
 ![作品集项目地图](docs/images/portfolio-map.png)
