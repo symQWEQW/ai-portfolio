@@ -75,9 +75,9 @@ PNG 由 HTML 无头渲染导出（1300×1320），交互原图与源 JSON 一并
 
 ## 数据口径与脱敏
 
-- **所有数字都带出处**：某地指标来自 [RESULTS.md](https://github.com/symQWEQW/jiangling-ai-preaudit/blob/master/RESULTS.md)（`run_eval.py` 现场跑出，明细 `data/eval_result_v2.json`）；LoRA 指标来自 medical-lora-finetune 的 `README.md` 与 `outputs/eval_result.txt`（本机 CPU 实测）。未做四舍五入美化。
-- **局限如实写**：某地生成模块仍为 `mock=True` 默认、rerank 与召回同源；LoRA 仅 26 条样本、F1 绝对值 0.150 偏低、远未达上线水平；多智能体仅本地回环，**三个项目均未声称上线生产**。
-- ⚠️ 所有项目数据均为**模拟**，不含真实患者信息；地理名称「某地」统一脱敏为「某地」。公开前请逐条核对 [脱敏清单.md](https://github.com/symQWEQW/ai-portfolio/blob/master/%E8%84%B1%E6%95%8F%E6%B8%85%E5%8D%95.md)。
+- **所有数字都带出处**：主项目指标来自 [RESULTS.md](https://github.com/symQWEQW/jiangling-ai-preaudit/blob/master/RESULTS.md)（`run_eval.py` 现场跑出，明细 `data/eval_result_v2.json`）；LoRA 指标来自 medical-lora-finetune 的 `README.md` 与 `outputs/eval_result.txt`（本机 CPU 实测）。未做四舍五入美化。
+- **局限如实写**：主项目生成模块仍为 `mock=True` 默认、rerank 与召回同源；LoRA 仅 26 条样本、F1 绝对值 0.150 偏低、远未达上线水平；多智能体仅本地回环，**三个项目均未声称上线生产**。
+- ⚠️ 所有项目数据均为**模拟**，不含真实患者信息；地理名称已统一脱敏为「某地」。公开前请逐条核对 [脱敏清单.md](https://github.com/symQWEQW/ai-portfolio/blob/master/%E8%84%B1%E6%95%8F%E6%B8%85%E5%8D%95.md)。
 - 仓库目录名/远程名暂保留 `jiangling-*`，仅为历史命名，不代表真实地名。
 
 ## 本地预览 / 部署
