@@ -1,6 +1,6 @@
 # RAG 召回调优：从指标到实验（v2 重写）
 
-> 基于某地 AI 预审项目的真实实验数据。本文所有数字来自仓库 [`RESULTS.md`](https://github.com/symQWEQW/jiangling-ai-preaudit/blob/master/RESULTS.md)（v2 评估重建），由 `run_eval.py` 现场跑出。
+> 基于某地 AI 预审项目的真实实验数据。本文所有数字来自仓库 [`RESULTS.md`](https://github.com/symQWEQW/preaudit-rag-engine/blob/master/RESULTS.md)（v2 评估重建），由 `run_eval.py` 现场跑出。
 >
 > **版本说明**：本文 v1 曾引用「500 字切片 Recall@5 = 1.000」作为结论，该数字现已**撤回**。原因见第 1 节——它不是模型效果，而是评测口径的算术必然。本版用重建后的 38 题 / 三档 k 数据重写。
 
@@ -84,10 +84,10 @@ top-5 ⊇ 全部 5 个 chunk
 复现：
 
 ```bash
-cd jiangling-ai-preaudit
+cd preaudit-rag-engine
 python build_corpus.py    # 从真实 xlsx / html 重建语料
 python run_eval.py        # 三档 k × 三档切片，写 data/eval_result_v2.json
 python tests_eval.py      # 20 项边界断言
 ```
 
-完整报告、逐题明细与旧结论撤回清单见仓库 [`RESULTS.md`](https://github.com/symQWEQW/jiangling-ai-preaudit/blob/master/RESULTS.md)。
+完整报告、逐题明细与旧结论撤回清单见仓库 [`RESULTS.md`](https://github.com/symQWEQW/preaudit-rag-engine/blob/master/RESULTS.md)。

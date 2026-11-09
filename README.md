@@ -21,8 +21,8 @@
              会用平台 ──────▶ 懂 AI 工程 ──────▶ 碰过模型
                  │                  │                  │
     ┌────────────┴──────┐  ┌────────┴───────┐  ┌──────┴─────────┐
-    │ jiangling-        │  │ jiangling-     │  │ medical-       │
-    │ ai-preaudit       │  │ multi-agent    │  │ lora-finetune  │
+    │ preaudit-         │  │ preaudit-      │  │ medical-       │
+    │ rag-engine        │  │ multi-agent    │  │ lora-finetune  │
     │ RAG 应用 + 评估    │  │ LangGraph 编排 │  │ LoRA 微调+评估  │
     └───────────────────┘  └────────────────┘  └────────────────┘
 ```
@@ -31,18 +31,18 @@
 
 | 仓库 | 角色 | 技术栈 | 解决什么 | 关键实证 |
 |---|---|---|---|---|
-| [jiangling-ai-preaudit](https://github.com/symQWEQW/jiangling-ai-preaudit) | AI 工程作品（能讲深） | TF-IDF / BM25 + Ollama + RAG 评估 | 切片策略、重排序、量化评估 | 16 篇 / 13,390 字语料，38 题，HitRate@5 **0.974** / Recall@5 **0.549** / MRR@5 **0.715** |
-| [jiangling-multi-agent](https://github.com/symQWEQW/jiangling-multi-agent) | 多 Agent 编排 | LangGraph / StateGraph | Planner / Retriever / Auditor 三 Agent 协作 | 无依赖顺序回退，本地回环演示（**未上线 / 未接生产**） |
+| [preaudit-rag-engine](https://github.com/symQWEQW/preaudit-rag-engine) | AI 工程作品（能讲深） | TF-IDF / BM25 + Ollama + RAG 评估 | 切片策略、重排序、量化评估 | 16 篇 / 13,390 字语料，38 题，HitRate@5 **0.974** / Recall@5 **0.549** / MRR@5 **0.715** |
+| [preaudit-multi-agent](https://github.com/symQWEQW/preaudit-multi-agent) | 多 Agent 编排 | LangGraph / StateGraph | Planner / Retriever / Auditor 三 Agent 协作 | 无依赖顺序回退，本地回环演示（**未上线 / 未接生产**） |
 | [medical-lora-finetune](https://github.com/symQWEQW/medical-lora-finetune) | 原理级证据 | LoRA / PEFT / PyTorch | 训练并评估模型，不止调 API | 字符级 bigram F1 **0.065 → 0.150（+130.3%）**，26 条训练样本，CPU 3.5 min |
 
 > 仓库公开地址（均为绝对链接）：
-> - https://github.com/symQWEQW/jiangling-ai-preaudit
-> - https://github.com/symQWEQW/jiangling-multi-agent
+> - https://github.com/symQWEQW/preaudit-rag-engine
+> - https://github.com/symQWEQW/preaudit-multi-agent
 > - https://github.com/symQWEQW/medical-lora-finetune
 
 ### ★ 最值得讲的一件事
 
-**发现并撤回了被语料规模撑起来的满分读数。** 旧评测「HitRate@5 = 1.000 / Recall@5 = 1.000」不是模型好，而是 5 篇语料切成 5 个 chunk、计分窗口恰好也是 top-5 —— top-5 ⊇ 全部候选，满分在数学上必然。重建为 16 篇 / 13,390 字 + 4 篇干扰、38 题、k=3/5/10 三档后，真实读数是 **0.974 / 0.549 / 0.715**。完整复算证据见 [RESULTS.md](https://github.com/symQWEQW/jiangling-ai-preaudit/blob/master/RESULTS.md) 第四节。
+**发现并撤回了被语料规模撑起来的满分读数。** 旧评测「HitRate@5 = 1.000 / Recall@5 = 1.000」不是模型好，而是 5 篇语料切成 5 个 chunk、计分窗口恰好也是 top-5 —— top-5 ⊇ 全部候选，满分在数学上必然。重建为 16 篇 / 13,390 字 + 4 篇干扰、38 题、k=3/5/10 三档后，真实读数是 **0.974 / 0.549 / 0.715**。完整复算证据见 [RESULTS.md](https://github.com/symQWEQW/preaudit-rag-engine/blob/master/RESULTS.md) 第四节。
 
 ---
 
@@ -75,10 +75,10 @@ PNG 由 HTML 无头渲染导出（1300×1320），交互原图与源 JSON 一并
 
 ## 数据口径与脱敏
 
-- **所有数字都带出处**：主项目指标来自 [RESULTS.md](https://github.com/symQWEQW/jiangling-ai-preaudit/blob/master/RESULTS.md)（`run_eval.py` 现场跑出，明细 `data/eval_result_v2.json`）；LoRA 指标来自 medical-lora-finetune 的 `README.md` 与 `outputs/eval_result.txt`（本机 CPU 实测）。未做四舍五入美化。
+- **所有数字都带出处**：主项目指标来自 [RESULTS.md](https://github.com/symQWEQW/preaudit-rag-engine/blob/master/RESULTS.md)（`run_eval.py` 现场跑出，明细 `data/eval_result_v2.json`）；LoRA 指标来自 medical-lora-finetune 的 `README.md` 与 `outputs/eval_result.txt`（本机 CPU 实测）。未做四舍五入美化。
 - **局限如实写**：主项目生成模块仍为 `mock=True` 默认、rerank 与召回同源；LoRA 仅 26 条样本、F1 绝对值 0.150 偏低、远未达上线水平；多智能体仅本地回环，**三个项目均未声称上线生产**。
 - ⚠️ 所有项目数据均为**模拟**，不含真实患者信息；地理名称已统一脱敏为「某地」。公开前请逐条核对 [脱敏清单.md](https://github.com/symQWEQW/ai-portfolio/blob/master/%E8%84%B1%E6%95%8F%E6%B8%85%E5%8D%95.md)。
-- 仓库目录名/远程名暂保留 `jiangling-*`，仅为历史命名，不代表真实地名。
+- 仓库已统一使用 `preaudit-*` 命名，不含地理名称。
 
 ## 本地预览 / 部署
 

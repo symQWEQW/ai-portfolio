@@ -44,5 +44,5 @@ app = g.compile()
 这是**本地回环的编排演示**：三个 Agent 的逻辑为 mock，尚未接入真实 LLM 与政策库，
 **没有上线、也没有接入生产预审链路**。它的价值在架构设计与可替换性，不在业务闭环。
 
-流程图与各 Agent 职责见仓库 [`docs/flow.md`](https://github.com/symQWEQW/jiangling-multi-agent/blob/master/docs/flow.md)，
-完整实现见 [`jiangling-multi-agent`](https://github.com/symQWEQW/jiangling-multi-agent)。
+流程图与各 Agent 职责见仓库 [`docs/flow.md`](https://github.com/symQWEQW/preaudit-multi-agent/blob/master/docs/flow.md)，
+完整实现见 [`preaudit-multi-agent`](https://github.com/symQWEQW/preaudit-multi-agent)。

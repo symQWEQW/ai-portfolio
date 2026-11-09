@@ -40,4 +40,4 @@ print(json.loads(urllib.request.urlopen(req).read())["response"])
 - Ollama 一键部署，与 bge-m3 嵌入同生态，RAG 组合成熟
 - 7B 是精度/成本甜蜜点：14B/72B 精度高但部署贵，1.5B/3B 精度不足
 
-> 说明：生成模块在项目里默认 `mock=True`（可离线跑通 RAG 检索与评估），接真实 Ollama 需显式关闭 mock。详见某地项目 [README「模型选型」小节](https://github.com/symQWEQW/jiangling-ai-preaudit/blob/master/README.md) 与 [Dify 私有化部署踩坑实录](https://github.com/symQWEQW/ai-portfolio/blob/master/blogs/01-dify-deploy.md)。
+> 说明：生成模块在项目里默认 `mock=True`（可离线跑通 RAG 检索与评估），接真实 Ollama 需显式关闭 mock。详见某地项目 [README「模型选型」小节](https://github.com/symQWEQW/preaudit-rag-engine/blob/master/README.md) 与 [Dify 私有化部署踩坑实录](https://github.com/symQWEQW/ai-portfolio/blob/master/blogs/01-dify-deploy.md)。

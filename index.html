@@ -145,10 +145,10 @@
 <div class="project">
   <div class="phead">
     <div>
-      <h3><a href="https://github.com/symQWEQW/jiangling-ai-preaudit" target="_blank" rel="noopener">jiangling-ai-preaudit ↗</a></h3>
+      <h3><a href="https://github.com/symQWEQW/preaudit-rag-engine" target="_blank" rel="noopener">preaudit-rag-engine ↗</a></h3>
       <p class="oneline">面向高血压 / 糖尿病 / 恶性肿瘤三类慢特病材料，构建可量化评估的离线 RAG 检索链路：语料重建 → 切片 → TF-IDF 召回 → BM25 重排 → 三档 k 指标 → 边界断言。</p>
     </div>
-    <a class="repo" href="https://github.com/symQWEQW/jiangling-ai-preaudit" target="_blank" rel="noopener">查看仓库 ↗</a>
+    <a class="repo" href="https://github.com/symQWEQW/preaudit-rag-engine" target="_blank" rel="noopener">查看仓库 ↗</a>
   </div>
   <div class="stack">
     <span class="badge">Python 3.13 · 纯标准库</span><span class="badge blue">TF-IDF + 字符 bigram</span>
@@ -175,7 +175,7 @@
       <tr><td>Precision</td><td>0.404</td><td>0.316</td><td>0.216</td></tr>
     </tbody>
   </table>
-  <p class="caption">数字来源：<a href="https://github.com/symQWEQW/jiangling-ai-preaudit/blob/master/RESULTS.md" target="_blank" rel="noopener">RESULTS.md（v2 评估重建报告）↗</a>，由 <code>run_eval.py</code> 现场跑出，明细在 <code>data/eval_result_v2.json</code>。</p>
+  <p class="caption">数字来源：<a href="https://github.com/symQWEQW/preaudit-rag-engine/blob/master/RESULTS.md" target="_blank" rel="noopener">RESULTS.md（v2 评估重建报告）↗</a>，由 <code>run_eval.py</code> 现场跑出，明细在 <code>data/eval_result_v2.json</code>。</p>
 
   <div class="note">
     <b>两个诚实结论：</b>① 切片越小 HitRate 越高但 Recall / MRR 显著下降（200 字 Recall 仅 0.254），500 字三指标综合最优；② 当前 rerank 用 BM25、与 TF-IDF <b>同源</b>，只能证明「重排不会显著变差」，证明不了「重排有效」—— 报告里写明了要换语义召回 + cross-encoder 才是下一步。生成模块仍为 <code>mock=True</code> 默认，未接真实生成。
@@ -193,7 +193,7 @@
   </div>
   <p class="caption">图由现成 archify 图表（<code>archify-output/</code>）真实渲染导出，非手绘示意图；源 <code>.json</code> 一并放在 <a href="diagrams/preaudit-architecture.json">diagrams/ ↗</a> 可核对。地理名称已统一脱敏为「某地」。</p>
 
-  <pre><code>cd jiangling-ai-preaudit
+  <pre><code>cd preaudit-rag-engine
 python build_corpus.py    # 从真实 xlsx / html 重建语料
 python run_eval.py        # 三档 k × 三档切片，写 data/eval_result_v2.json
 python tests_eval.py      # 20 项边界断言</code></pre>
@@ -205,10 +205,10 @@ python tests_eval.py      # 20 项边界断言</code></pre>
 <div class="project">
   <div class="phead">
     <div>
-      <h3><a href="https://github.com/symQWEQW/jiangling-multi-agent" target="_blank" rel="noopener">jiangling-multi-agent ↗</a></h3>
+      <h3><a href="https://github.com/symQWEQW/preaudit-multi-agent" target="_blank" rel="noopener">preaudit-multi-agent ↗</a></h3>
       <p class="oneline">Planner / Retriever / Auditor 三智能体协作完成病种材料预审；用 LangGraph 编排图，未装依赖时自动回退到顺序执行模式，逻辑完全一致。</p>
     </div>
-    <a class="repo" href="https://github.com/symQWEQW/jiangling-multi-agent" target="_blank" rel="noopener">查看仓库 ↗</a>
+    <a class="repo" href="https://github.com/symQWEQW/preaudit-multi-agent" target="_blank" rel="noopener">查看仓库 ↗</a>
   </div>
   <div class="stack">
     <span class="badge blue">LangGraph / StateGraph</span><span class="badge">Python 3.10+</span>
@@ -223,7 +223,7 @@ python tests_eval.py      # 20 项边界断言</code></pre>
     <div class="arrow">→</div>
     <div class="node"><div class="r">03 · AUDITOR</div><div class="n">审核 Agent</div><div class="d">综合材料 + 政策，输出结构化预审结论，异常转人工</div></div>
   </div>
-  <p class="caption">流程依据仓库 <a href="https://github.com/symQWEQW/jiangling-multi-agent/blob/master/docs/flow.md" target="_blank" rel="noopener">docs/flow.md ↗</a>（Mermaid 原图）按原结构重排；现有图表集中没有该项目的独立架构图，此处不套用无关图。</p>
+  <p class="caption">流程依据仓库 <a href="https://github.com/symQWEQW/preaudit-multi-agent/blob/master/docs/flow.md" target="_blank" rel="noopener">docs/flow.md ↗</a>（Mermaid 原图）按原结构重排；现有图表集中没有该项目的独立架构图，此处不套用无关图。</p>
 
   <ul class="clean">
     <li><b>职责解耦：</b>病种识别 / 政策检索 / 合规审核可独立优化与替换，Retriever 可换成上面的 RAG 服务。</li>
@@ -304,7 +304,7 @@ python tests_eval.py      # 20 项边界断言</code></pre>
 </ul>
 
 <footer>
-  <p><b>数据来源与口径：</b>主项目指标来自 <a href="https://github.com/symQWEQW/jiangling-ai-preaudit/blob/master/RESULTS.md" target="_blank" rel="noopener">RESULTS.md ↗</a>（v2 评估重建），LoRA 指标来自 medical-lora-finetune README 实测；架构图由 <code>archify-output/</code> 现成图表导出。所有数字均带口径，未做四舍五入美化。</p>
+  <p><b>数据来源与口径：</b>主项目指标来自 <a href="https://github.com/symQWEQW/preaudit-rag-engine/blob/master/RESULTS.md" target="_blank" rel="noopener">RESULTS.md ↗</a>（v2 评估重建），LoRA 指标来自 medical-lora-finetune README 实测；架构图由 <code>archify-output/</code> 现成图表导出。所有数字均带口径，未做四舍五入美化。</p>
   <p><b>脱敏：</b>地理名称统一为「某地」，公开内容不署真实姓名，机构与患者数据均为模拟或已脱敏；逐条核对见 <a href="https://github.com/symQWEQW/ai-portfolio/blob/master/%E8%84%B1%E6%95%8F%E6%B8%85%E5%8D%95.md" target="_blank" rel="noopener">脱敏清单.md ↗</a>。三个项目均为演示 / 评估用途，未声称已上线生产。</p>
   <p>作品集主页 · <a href="https://github.com/symQWEQW/ai-portfolio" target="_blank" rel="noopener">github.com/symQWEQW/ai-portfolio ↗</a> · 内容均来自本人真实项目，欢迎核实。</p>
 </footer>
