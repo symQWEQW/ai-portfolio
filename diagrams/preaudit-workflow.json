@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "某地政务 AI 预审系统 · 业务流程",
+    "subtitle": "患者填报 → AI 审核 → 通知 → 窗口预审",
+    "animation": "trace",
+    "visual_preset": "signal-flow",
+    "quality_profile": "standard",
+    "views": [
+      {
+        "id": "main",
+        "label": "主审核链路",
+        "focus": [
+          "n0",
+          "n1",
+          "n2",
+          "n3",
+          "n4",
+          "n5"
+        ],
+        "note": "患者填报到预审完成的核心链路。"
+      },
+      {
+        "id": "branch",
+        "label": "人工与对接",
+        "focus": [
+          "w_review",
+          "e_sms",
+          "e_mibao"
+        ],
+        "note": "窗口人工预审、短信通知与医保接口分支。"
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "process",
+      "label": "预审主流程"
+    },
+    {
+      "id": "branch",
+      "label": "分支与对接"
+    }
+  ],
+  "mainPath": [
+    "n0",
+    "n1",
+    "n2",
+    "n3",
+    "n4",
+    "n5"
+  ],
+  "nodes": [
+    {
+      "id": "n0",
+      "lane": "process",
+      "col": 0,
+      "type": "frontend",
+      "label": "患者填报",
+      "sublabel": "Vue·H5",
+      "width": 62
+    },
+    {
+      "id": "n1",
+      "lane": "process",
+      "col": 1,
+      "type": "database",
+      "label": "材料缓存",
+      "sublabel": "本地存储",
+      "width": 62
+    },
+    {
+      "id": "n2",
+      "lane": "process",
+      "col": 2,
+      "type": "backend",
+      "label": "触发审核",
+      "sublabel": "Spring",
+      "width": 62
+    },
+    {
+      "id": "n3",
+      "lane": "process",
+      "col": 3,
+      "type": "cloud",
+      "label": "Dify编排",
+      "sublabel": "AI引擎",
+      "width": 62
+    },
+    {
+      "id": "n4",
+      "lane": "process",
+      "col": 4,
+      "type": "backend",
+      "label": "模型推理",
+      "sublabel": "Ollama",
+      "width": 62
+    },
+    {
+      "id": "n5",
+      "lane": "process",
+      "col": 5,
+      "type": "security",
+      "label": "判定完成",
+      "sublabel": "AI判定",
+      "width": 62
+    },
+    {
+      "id": "w_review",
+      "lane": "branch",
+      "col": 2,
+      "type": "frontend",
+      "label": "窗口预审",
+      "sublabel": "低优先",
+      "width": 60
+    },
+    {
+      "id": "e_sms",
+      "lane": "branch",
+      "col": 4,
+      "type": "external",
+      "label": "短信通知",
+      "sublabel": "结果推送",
+      "width": 60
+    },
+    {
+      "id": "e_mibao",
+      "lane": "branch",
+      "col": 5,
+      "type": "external",
+      "label": "医保接口",
+      "sublabel": "可扩展",
+      "width": 60
+    }
+  ],
+  "edges": [
+    {
+      "from": "n0",
+      "to": "n1",
+      "route": "bottom-channel",
+      "fromSide": "bottom",
+      "toSide": "bottom"
+    },
+    {
+      "from": "n1",
+      "to": "n2",
+      "route": "bottom-channel",
+      "fromSide": "bottom",
+      "toSide": "bottom"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "route": "bottom-channel",
+      "fromSide": "bottom",
+      "toSide": "bottom"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "route": "bottom-channel",
+      "fromSide": "bottom",
+      "toSide": "bottom"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "route": "bottom-channel",
+      "fromSide": "bottom",
+      "toSide": "bottom"
+    },
+    {
+      "from": "n2",
+      "to": "w_review",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "variant": "dashed",
+      "role": "branch"
+    },
+    {
+      "from": "n4",
+      "to": "e_sms",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "variant": "dashed",
+      "role": "async"
+    },
+    {
+      "from": "n5",
+      "to": "e_mibao",
+      "route": "drop",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "variant": "dashed",
+      "role": "async"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "最小功能集",
+      "items": [
+        "患者 H5 填报 → AI 审核 → 短信通知 → 窗口预审",
+        "医保局接口列为低优先级扩展"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "本地 AI 引擎",
+      "items": [
+        "Dify 编排工作流，Ollama 本地推理",
+        "材料缓存于本地，数据不出域"
+      ]
+    }
+  ]
+}

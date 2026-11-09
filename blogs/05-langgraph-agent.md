@@ -9,10 +9,10 @@
 
 ```
 患者问题 → Planner（识别病种/拆解材料）
-                ↓
-          Retriever（按病种查政策）
-                ↓
-          Auditor（综合出结论）
+                 ↓
+           Retriever（按病种查政策）
+                 ↓
+           Auditor（综合出结论）
 ```
 
 ## 2. LangGraph 代码骨架
@@ -38,4 +38,11 @@ app = g.compile()
 - **可控**：比 Dify 拖拽更适合复杂政务合规场景
 
 未安装 `langgraph` 时，项目内置顺序执行回退模式，逻辑完全一致，可零依赖演示。
-完整实现见 [`jiangling-multi-agent`](../../jiangling-multi-agent)。
+
+## 4. 当前边界（如实说明）
+
+这是**本地回环的编排演示**：三个 Agent 的逻辑为 mock，尚未接入真实 LLM 与政策库，
+**没有上线、也没有接入生产预审链路**。它的价值在架构设计与可替换性，不在业务闭环。
+
+流程图与各 Agent 职责见仓库 [`docs/flow.md`](https://github.com/symQWEQW/jiangling-multi-agent/blob/master/docs/flow.md)，
+完整实现见 [`jiangling-multi-agent`](https://github.com/symQWEQW/jiangling-multi-agent)。

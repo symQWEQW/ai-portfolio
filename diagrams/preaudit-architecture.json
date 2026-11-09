@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "某地政务 AI 预审系统",
+    "subtitle": "慢特病医保认定 · 高血压 / 糖尿病 / 恶性肿瘤",
+    "output": "preaudit-architecture.html",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "views": [
+      { "id": "audit-path", "label": "AI 预审主链路", "focus": ["patient", "gateway", "ai", "llm"], "note": "患者填报经后台调度进入 Dify 工作流，由 Ollama 模型完成材料判定。" },
+      { "id": "window-path", "label": "窗口预审", "focus": ["window", "gateway", "cache"], "note": "窗口 PC 端调阅预审记录与缓存材料进行人工复核。" }
+    ]
+  },
+  "components": [
+    { "id": "patient", "type": "frontend", "label": "患者填报端", "sublabel": "Vue / H5", "pos": [40, 260], "size": [140, 64] },
+    { "id": "window", "type": "frontend", "label": "窗口 PC 端", "sublabel": "人工预审", "pos": [40, 520], "size": [140, 64] },
+    { "id": "gateway", "type": "backend", "label": "预审后台", "sublabel": "Spring Boot", "pos": [360, 390], "size": [150, 68] },
+    { "id": "ai", "type": "cloud", "label": "Dify AI 引擎", "sublabel": "工作流编排", "pos": [700, 260], "size": [150, 68] },
+    { "id": "llm", "type": "backend", "label": "Ollama", "sublabel": "qwen2.5:7b", "pos": [700, 520], "size": [150, 60] },
+    { "id": "sms", "type": "external", "label": "短信通知", "sublabel": "结果推送", "pos": [1040, 180], "size": [140, 60] },
+    { "id": "cache", "type": "database", "label": "材料缓存", "sublabel": "本地存储", "pos": [360, 740], "size": [150, 60] },
+    { "id": "mibao", "type": "external", "label": "医保局接口", "sublabel": "低优先级扩展", "pos": [1040, 520], "size": [140, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "政务服务中心 · 某地", "wraps": ["patient", "window", "gateway", "ai", "llm", "cache"] },
+    { "kind": "security-group", "label": "AI 审核边界", "wraps": ["ai", "llm"] }
+  ],
+  "connections": [
+    { "id": "patient-submit", "from": "patient", "to": "gateway", "label": "填报提交", "variant": "emphasis" },
+    { "id": "window-op", "from": "window", "to": "gateway", "label": "窗口操作" },
+    { "id": "gateway-ai", "from": "gateway", "to": "ai", "label": "发起审核", "variant": "emphasis" },
+    { "id": "ai-llm", "from": "ai", "to": "llm", "label": "模型推理", "fromSide": "bottom", "toSide": "top", "labelAt": [830, 430] },
+    { "id": "ai-result", "from": "ai", "to": "gateway", "label": "返回结果", "fromSide": "top", "toSide": "top", "via": [[775, 200], [435, 200]], "labelAt": [605, 184] },
+    { "id": "gateway-sms", "from": "gateway", "to": "sms", "label": "短信通知", "variant": "dashed", "fromSide": "top", "toSide": "top", "via": [[435, 120], [1110, 120]], "labelAt": [770, 108] },
+    { "id": "gateway-cache", "from": "gateway", "to": "cache", "label": "材料缓存读写", "labelAt": [500, 600] },
+    { "id": "gateway-mibao", "from": "gateway", "to": "mibao", "label": "医保局接口", "variant": "dashed", "fromSide": "right", "toSide": "left", "via": [[600, 424], [600, 660], [980, 660], [980, 550]] }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "患者侧", "items": ["患者 H5 填报端（Vue/H5）", "窗口 PC 端人工预审"] },
+    { "dot": "emerald", "title": "应用与 AI", "items": ["Spring Boot 预审后台统一调度", "Dify 工作流 + Ollama qwen2.5:7b 完成材料判定"] },
+    { "dot": "violet", "title": "通知与数据", "items": ["短信通知结果推送", "材料缓存本地化存储"] },
+    { "dot": "rose", "title": "外部对接", "items": ["医保局接口列为低优先级扩展"] }
+  ]
+}
