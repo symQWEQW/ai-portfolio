@@ -136,7 +136,7 @@
 <div class="highlight">
   <div class="k">★ 最想让面试官看到的一件事</div>
   <p><b>发现并撤回了被语料规模撑起来的满分读数。</b></p>
-  <small>旧评测里「HitRate@5 = 1.000 / Recall@5 = 1.000」不是模型好，而是 5 篇语料切成 5 个 chunk、计分窗口恰好也是 top-5 —— top-5 ⊇ 全部候选，满分在数学上必然。重建为 16 篇 / 13,390 字 + 4 篇干扰、38 题、k=3/5/10 三档后，真实读数是 <b>HitRate@5 0.974 / Recall@5 0.549 / MRR@5 0.715</b>。愿意把自己的漂亮数字作废，比多贴一个好看数字值钱。</small>
+  <small>旧评测里「HitRate@5 = 1.000 / Recall@5 = 1.000」不是模型好，而是 5 篇语料切成 5 个 chunk、计分窗口恰好也是 top-5 —— top-5 ⊇ 全部候选，满分在数学上必然。重建为 16 篇 / 12,299 字 + 4 篇干扰、38 题、k=3/5/10 三档后，真实读数是 <b>HitRate@5 0.921 / Recall@5 0.490 / MRR@5 0.639</b>。后来还发现第一版把溯源元数据写进了切分正文，SOURCE 行长度一变切片边界就漂移、指标跟着变（同一套代码随排版不同会跑出多组互相矛盾的读数），于是把元数据从正文剥离、只让政策正文参与切分，才得到这组<b>确定性</b>读数。愿意把自己的漂亮数字作废两次，比多贴一个好看数字值钱。</small>
 </div>
 
 <!-- ============ 01 ============ -->
@@ -158,27 +158,27 @@
   </div>
 
   <div class="metrics">
-    <div class="metric"><div class="v">16 篇 / 13,390 字</div><div class="l">真实材料抽取语料</div><div class="n">+ 4 篇干扰 / 723 字；旧 5 篇模拟语料已隔离到 legacy_mock</div></div>
+    <div class="metric"><div class="v">16 篇 / 12,299 字</div><div class="l">真实材料抽取语料</div><div class="n">+ 4 篇干扰 / 479 字（合计 12,778 字）；溯源元数据已剥离出切分正文</div></div>
     <div class="metric"><div class="v">38 题</div><div class="l">评估题库（旧 15 题）</div><div class="n">gold 精确到文档并附原文依据</div></div>
-    <div class="metric"><div class="v">37 chunk</div><div class="l">500 字切片</div><div class="n">另测 300 字 / 56、200 字 / 83 三档</div></div>
-    <div class="metric"><div class="v good">0.974</div><div class="l">HitRate@5（500 字）</div><div class="n">38 题中仅 1 题未命中，已做失败归因</div></div>
-    <div class="metric"><div class="v warn">0.549</div><div class="l">Recall@5（500 字）</div><div class="n">诚实读数：命中文档易、捞齐片段难</div></div>
-    <div class="metric"><div class="v good">0.715</div><div class="l">MRR@5（500 字）</div><div class="n">rerank 后 0.738（+2.3 点）</div></div>
+    <div class="metric"><div class="v">36 chunk</div><div class="l">500 字切片</div><div class="n">另测 300 字 / 52、200 字 / 76 三档</div></div>
+    <div class="metric"><div class="v good">0.921</div><div class="l">HitRate@5（500 字）</div><div class="n">38 题中 3 题未命中（D03/D06/C01），已逐题归因</div></div>
+    <div class="metric"><div class="v warn">0.490</div><div class="l">Recall@5（500 字）</div><div class="n">诚实读数：命中文档易、捞齐片段难</div></div>
+    <div class="metric"><div class="v good">0.639</div><div class="l">MRR@5（500 字）</div><div class="n">rerank 后 0.615（500 字切片反而下降）</div></div>
   </div>
 
   <table>
     <thead><tr><th>500 字切片 · 仅向量检索</th><th>k=3</th><th>k=5</th><th>k=10</th></tr></thead>
     <tbody>
-      <tr><td>HitRate</td><td>0.921</td><td class="hi">0.974</td><td>1.000</td></tr>
-      <tr><td>Recall</td><td>0.433</td><td class="hi">0.549</td><td>0.698</td></tr>
-      <tr><td>MRR</td><td>0.702</td><td class="hi">0.715</td><td>0.719</td></tr>
-      <tr><td>Precision</td><td>0.404</td><td>0.316</td><td>0.216</td></tr>
+      <tr><td>HitRate</td><td>0.816</td><td class="hi">0.921</td><td>1.000</td></tr>
+      <tr><td>Recall</td><td>0.384</td><td class="hi">0.490</td><td>0.714</td></tr>
+      <tr><td>MRR</td><td>0.614</td><td class="hi">0.639</td><td>0.651</td></tr>
+      <tr><td>Precision</td><td>0.368</td><td>0.284</td><td>0.216</td></tr>
     </tbody>
   </table>
   <p class="caption">数字来源：<a href="https://github.com/symQWEQW/preaudit-rag-engine/blob/master/RESULTS.md" target="_blank" rel="noopener">RESULTS.md（v2 评估重建报告）↗</a>，由 <code>run_eval.py</code> 现场跑出，明细在 <code>data/eval_result_v2.json</code>。</p>
 
   <div class="note">
-    <b>两个诚实结论：</b>① 切片越小 HitRate 越高但 Recall / MRR 显著下降（200 字 Recall 仅 0.254），500 字三指标综合最优；② 当前 rerank 用 BM25、与 TF-IDF <b>同源</b>，只能证明「重排不会显著变差」，证明不了「重排有效」—— 报告里写明了要换语义召回 + cross-encoder 才是下一步。生成模块仍为 <code>mock=True</code> 默认，未接真实生成。
+    <b>三个诚实结论：</b>① 切片越小 HitRate 越高但 Recall / MRR 显著下降（200 字 Recall 仅 0.237），500 字在 Recall / MRR 上最优；② 当前 rerank 用 BM25、与 TF-IDF <b>同源</b>，500 字切片下三项指标反而全部下降，只能证明「重排不会显著变好」，证明不了「重排有效」—— 报告里写明了要换语义召回 + cross-encoder 才是下一步；③ 溯源元数据已从切分正文剥离，指标连续两次运行逐字节一致。生成模块仍为 <code>mock=True</code> 默认，未接真实生成。
   </div>
 
   <div class="figs">
@@ -194,7 +194,7 @@
   <p class="caption">图由现成 archify 图表（<code>archify-output/</code>）真实渲染导出，非手绘示意图；源 <code>.json</code> 一并放在 <a href="diagrams/preaudit-architecture.json">diagrams/ ↗</a> 可核对。地理名称已统一脱敏为「某地」。</p>
 
   <pre><code>cd preaudit-rag-engine
-python build_corpus.py    # 从真实 xlsx / html 重建语料
+python build_corpus.py    # 从真实 xlsx / html 重建语料（元数据存 data/sources.json）
 python run_eval.py        # 三档 k × 三档切片，写 data/eval_result_v2.json
 python tests_eval.py      # 20 项边界断言</code></pre>
 </div>

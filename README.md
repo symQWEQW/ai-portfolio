@@ -31,7 +31,7 @@
 
 | 仓库 | 角色 | 技术栈 | 解决什么 | 关键实证 |
 |---|---|---|---|---|
-| [preaudit-rag-engine](https://github.com/symQWEQW/preaudit-rag-engine) | AI 工程作品（能讲深） | TF-IDF / BM25 + Ollama + RAG 评估 | 切片策略、重排序、量化评估 | 16 篇 / 13,390 字语料，38 题，HitRate@5 **0.974** / Recall@5 **0.549** / MRR@5 **0.715** |
+| [preaudit-rag-engine](https://github.com/symQWEQW/preaudit-rag-engine) | AI 工程作品（能讲深） | TF-IDF / BM25 + Ollama + RAG 评估 | 切片策略、重排序、量化评估 | 16 篇 / 12,299 字 + 4 篇干扰 / 479 字，38 题，HitRate@5 **0.921** / Recall@5 **0.490** / MRR@5 **0.639** |
 | [preaudit-multi-agent](https://github.com/symQWEQW/preaudit-multi-agent) | 多 Agent 编排 | LangGraph / StateGraph | Planner / Retriever / Auditor 三 Agent 协作 | 无依赖顺序回退，本地回环演示（**未上线 / 未接生产**） |
 | [medical-lora-finetune](https://github.com/symQWEQW/medical-lora-finetune) | 原理级证据 | LoRA / PEFT / PyTorch | 训练并评估模型，不止调 API | 字符级 bigram F1 **0.065 → 0.150（+130.3%）**，26 条训练样本，CPU 3.5 min |
 
@@ -42,7 +42,7 @@
 
 ### ★ 最值得讲的一件事
 
-**发现并撤回了被语料规模撑起来的满分读数。** 旧评测「HitRate@5 = 1.000 / Recall@5 = 1.000」不是模型好，而是 5 篇语料切成 5 个 chunk、计分窗口恰好也是 top-5 —— top-5 ⊇ 全部候选，满分在数学上必然。重建为 16 篇 / 13,390 字 + 4 篇干扰、38 题、k=3/5/10 三档后，真实读数是 **0.974 / 0.549 / 0.715**。完整复算证据见 [RESULTS.md](https://github.com/symQWEQW/preaudit-rag-engine/blob/master/RESULTS.md) 第四节。
+**发现并撤回了被语料规模撑起来的满分读数。** 旧评测「HitRate@5 = 1.000 / Recall@5 = 1.000」不是模型好，而是 5 篇语料切成 5 个 chunk、计分窗口恰好也是 top-5 —— top-5 ⊇ 全部候选，满分在数学上必然。重建为 16 篇 / 12,299 字 + 4 篇干扰 / 479 字（合计 12,778 字）、38 题、k=3/5/10 三档，并把溯源元数据从切分正文剥离后，确定性读数是 **0.921 / 0.490 / 0.639**。完整复算证据见 [RESULTS.md](https://github.com/symQWEQW/preaudit-rag-engine/blob/master/RESULTS.md) 第四节。
 
 ---
 
